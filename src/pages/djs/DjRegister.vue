@@ -14,6 +14,7 @@
         components: {
             DjForm,
         },
+
         methods: {
             saveData(data) {
                 this.$store.dispatch("djs/addDiskJockey", data);

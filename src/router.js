@@ -6,6 +6,7 @@ import DjDetails from "./pages/djs/DjDetails.vue";
 import ContactDj from "./pages/requests/ContactDj.vue";
 import RequestReceived from "./pages/requests/RequestReceived.vue";
 import NotFound from "./pages/NotFound.vue";
+import UserAuth from "./pages/auth/UserAuth.vue";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -36,6 +37,10 @@ const router = createRouter({
         {
             path: "/requests",
             component: RequestReceived,
+        },
+        {
+            path: "/auth",
+            component: UserAuth,
         },
         {
             path: "/:notFound(.*)",
