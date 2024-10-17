@@ -26,6 +26,13 @@ const router = createRouter({
 			path: "/djs/:id",
 			name: "dj-detail",
 			component: () => import("@/pages/DjDetail.vue"),
+			children: [
+				{
+					path: "contact",
+					name: "contact-dj",
+					component: () => import("@/pages/ContactDj.vue"),
+				},
+			],
 		},
 		{
 			path: "/signin",
@@ -45,7 +52,7 @@ const router = createRouter({
 		{
 			path: "/contact",
 			name: "contact",
-			component: () => import("@/pages/ContactPage.vue"),
+			component: () => import("@/pages/ContactDj.vue"),
 		},
 		{
 			path: "/:catchAll(.*)",

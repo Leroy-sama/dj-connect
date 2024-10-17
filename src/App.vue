@@ -23,6 +23,8 @@
 		--clr-01: #004268;
 		--clr-01-dark: #002c46;
 		--clr-01-light: #006ba8;
+		--clr-black: #010103;
+		--clr-white: #ffffff;
 	}
 
 	img {

@@ -38,6 +38,7 @@
 				<div class="djs-wrap">
 					<div v-for="dj in djStore.djs" :key="dj.id">
 						<DjItem
+							:id="dj.id"
 							:image="dj.image"
 							:name="dj.name"
 							:location="dj.location"
