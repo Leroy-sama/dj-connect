@@ -1,33 +1,25 @@
 <template>
-	<section class="dj">
-		<div class="dj__wrapper">
-			<h1 class="dj__name">Dj Smooth Groove</h1>
-			<img src="../assets/img/black-man-posing.jpg" alt="" />
+	<section class="dj" v-if="selectedDj">
+		<ContactDj v-if="contact" />
+		<div class="wrapper">
+			<h1 class="dj__name">{{ djName }}</h1>
+			<img :src="djImage" alt="" />
 			<p class="dj__description">
-				Smooth Groove has been a professional DJ for over 15years
-				playing at some of the exciting events in the world. WIth a deep
-				knowledge of music and passion for performance, Smooth Groove is
-				the perfect choice for your next event.
+				{{ djDescription }}
 			</p>
-			<RouterLink class="dj__contact" :to="`/djs/${id}/contact`"
-				>Contact Dj</RouterLink
-			>
+			<button @click="contactDj" class="dj__contact">Contact Dj</button>
 			<h2 class="events__head">Events</h2>
 			<div class="events__grid">
-				<div class="event">
-					<img src="../assets/img/new-york.jpg" alt="" />
-					<h3 class="event__name">New York Fashion Week</h3>
-				</div>
-				<div class="event">
-					<img src="../assets/img/burning-man.webp" alt="" />
-					<h3 class="event__name">Burning Man</h3>
-				</div>
-				<div class="event">
-					<img src="../assets/img/coachella.webp" alt="" />
-					<h3 class="event__name">Coachella</h3>
+				<div
+					class="event"
+					v-for="event in selectedDj.events"
+					:key="event.name"
+				>
+					<img :src="event.image" alt="" />
+					<h3 class="event__name">{{ event.name }}</h3>
 				</div>
 			</div>
-			<h2 class="reviews__head">Reviews</h2>
+			<!-- <h2 class="reviews__head">Reviews</h2>
 			<div class="reviews__grid">
 				<div class="review">
 					<h3 class="review__name">User 1</h3>
@@ -47,17 +39,43 @@
 					</p>
 					<div class="review__rating"></div>
 				</div>
-			</div>
+			</div> -->
 		</div>
+	</section>
+	<section v-else>
+		<h1>Not found</h1>
+		<p style="font-size: 4rem">{{ id }}</p>
 	</section>
 </template>
 
 <script setup>
+	import { computed, onMounted, ref } from "vue";
 	import { useRoute } from "vue-router";
+	import { useDjStore } from "@/stores/counter";
+	import ContactDj from "./ContactDj.vue";
+
+	const contact = ref(null);
 
 	const route = useRoute();
-
+	const djStore = useDjStore();
+	const selectedDj = ref(null);
 	const id = route.params.id;
+
+	const djName = computed(() => selectedDj.value.name);
+	const djDescription = computed(() => selectedDj.value.description);
+	const djImage = computed(() => selectedDj.value.image);
+
+	onMounted(() => {
+		const djs = djStore.djs;
+		selectedDj.value = djs.find((dj) => {
+			return dj.id === Number(id);
+		});
+		console.log(selectedDj.value);
+	});
+
+	const contactDj = () => {
+		contact.value = true;
+	};
 </script>
 
 <style lang="css" scoped>

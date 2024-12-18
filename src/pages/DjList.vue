@@ -1,52 +1,58 @@
 <template>
 	<main>
-		<div class="head">
-			<div class="wrap">
-				<div class="head__first">
-					<h1 class="head__heading">Find a DJ</h1>
-					<p class="head__text">Search by Djs, cities, category...</p>
-					<div class="form-control">
-						<input
-							type="text"
-							name="search"
-							id="search"
-							placeholder="Search DJs, cities, categories"
-						/>
+		<div class="wrapper">
+			<div class="head">
+				<div class="wrap">
+					<div class="head__first">
+						<h1 class="head__heading">Find a DJ</h1>
+						<p class="head__text">
+							Search by Djs, cities, category...
+						</p>
+						<div class="form-control">
+							<input
+								type="text"
+								name="search"
+								id="search"
+								placeholder="Search DJs, cities, categories"
+							/>
+						</div>
 					</div>
-				</div>
-				<div class="head__second">
-					<h2 class="second__head">Popular Cities</h2>
-					<div class="spans">
-						<span class="city">Los Angeles</span>
-						<span class="city">Chicago</span>
-						<span class="city">Las Vegas</span>
-					</div>
-				</div>
-				<div class="head__third">
-					<h2 class="third__head">Categories</h2>
-					<div class="cats">
-						<span class="city">Corporate</span>
-						<span class="city">Birthday</span>
-						<span class="city">Wedding</span>
+					<div class="head__wrap">
+						<div class="head__second">
+							<h2 class="second__head">Popular Cities</h2>
+							<div class="spans">
+								<span class="city">Los Angeles</span>
+								<span class="city">Chicago</span>
+								<span class="city">Las Vegas</span>
+							</div>
+						</div>
+						<div class="head__third">
+							<h2 class="third__head">Categories</h2>
+							<div class="cats">
+								<span class="city">Corporate</span>
+								<span class="city">Birthday</span>
+								<span class="city">Wedding</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+			<section class="list">
+				<div class="list__wrapper">
+					<h2 class="list__head">Featured DJs</h2>
+					<div class="djs-wrap">
+						<div v-for="dj in djStore.djs" :key="dj.id">
+							<DjItem
+								:id="dj.id"
+								:image="dj.image"
+								:name="dj.name"
+								:location="dj.location"
+							/>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
-		<section class="list">
-			<div class="list__wrapper">
-				<h2 class="list__head">Featured DJs</h2>
-				<div class="djs-wrap">
-					<div v-for="dj in djStore.djs" :key="dj.id">
-						<DjItem
-							:id="dj.id"
-							:image="dj.image"
-							:name="dj.name"
-							:location="dj.location"
-						/>
-					</div>
-				</div>
-			</div>
-		</section>
 	</main>
 </template>
 
@@ -122,5 +128,9 @@
 	}
 
 	@media (min-width: 768px) {
+		.head__wrap {
+			display: flex;
+			justify-content: space-between;
+		}
 	}
 </style>

@@ -5,10 +5,17 @@
 			<p class="signup__text">
 				Enter your details to create an account on this platform
 			</p>
-			<form action="#">
+			<form action="#" @submit.prevent="handleSubmit">
 				<div class="form-control">
 					<label for="username">Username</label>
-					<input type="text" name="username" placeholder="Username" />
+					<input
+						type="text"
+						name="username"
+						placeholder="Username"
+						v-model="username"
+						@input="validateForm"
+						required
+					/>
 				</div>
 				<div class="form-control">
 					<label for="email">Email Address</label>
@@ -17,6 +24,20 @@
 						id="email"
 						name="email"
 						placeholder="example@me.com"
+						v-model="email"
+						@input="validateForm"
+						required
+					/>
+				</div>
+				<div class="form-control">
+					<label for="location">Location</label>
+					<input
+						type="text"
+						id="location"
+						name="location"
+						v-model="location"
+						@input="validateForm"
+						required
 					/>
 				</div>
 				<div class="form-control">
@@ -26,11 +47,17 @@
 						id="password"
 						name="password"
 						placeholder="********"
+						v-model="password"
+						@input="validateForm"
+						required
+						minlength="6"
 					/>
 				</div>
 
 				<div class="form-control">
-					<button>Sign Up</button>
+					<button type="submit" :disabled="!isFormValid">
+						Sign Up
+					</button>
 				</div>
 				<p class="new">
 					Already have an account?
@@ -41,7 +68,51 @@
 	</section>
 </template>
 
-<script setup></script>
+<script setup>
+	import { ref } from "vue";
+	import { useDjStore } from "@/stores/counter";
+	import { useRouter } from "vue-router";
+
+	const username = ref("");
+	const location = ref("");
+	const email = ref("");
+	const password = ref("");
+	const isUsernameValid = ref(false);
+	const isLocationValid = ref(false);
+	const isEmailValid = ref(false);
+	const isPasswordValid = ref(false);
+	const isFormValid = ref(false);
+
+	const validateForm = () => {
+		isUsernameValid.value = !username.value;
+		isLocationValid.value = !location.value;
+		isEmailValid.value = validateEmail(email.value);
+		isPasswordValid.value = password.value.length >= 6;
+		isFormValid.value = isEmailValid.value && isPasswordValid.value;
+	};
+
+	const validateEmail = (email) => {
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailPattern.test(email);
+	};
+
+	const handleSubmit = () => {
+		const djStore = useDjStore();
+		const router = useRouter();
+
+		if (isFormValid.value) {
+			const formData = {
+				username: username.value,
+				location: location.value,
+				email: email.value,
+				password: password.value,
+			};
+			console.log("Form submitted with:", formData);
+			djStore.registerDj(formData);
+			router.push("/djs");
+		}
+	};
+</script>
 
 <style lang="css" scoped>
 	.signup {
@@ -95,5 +166,11 @@
 
 	.form-control button:hover {
 		background-color: var(--clr-01-dark);
+	}
+
+	.form-control button:disabled {
+		background-color: #ccc;
+		cursor: not-allowed;
+		color: black;
 	}
 </style>

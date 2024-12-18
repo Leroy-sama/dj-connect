@@ -1,5 +1,9 @@
 import { defineStore } from "pinia";
 
+import eventImg from "@/assets/img/wedding1.jpg";
+import eventImg2 from "@/assets/img/event2.jpg";
+import eventImg3 from "@/assets/img/event3.jpg";
+
 export const useDjStore = defineStore("djStore", {
 	state: () => ({
 		djs: [
@@ -12,19 +16,19 @@ export const useDjStore = defineStore("djStore", {
 				events: [
 					{
 						name: "Wedding 1",
-						image: "",
+						image: eventImg,
 						description:
 							"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 					},
 					{
 						name: "Wedding 2",
-						image: "",
+						image: eventImg2,
 						description:
 							"Vestibulum id ligula porta felis euismod semper.",
 					},
 					{
 						name: "Wedding 3",
-						image: "",
+						image: eventImg3,
 						description: "Nunc id neque semper, tristique",
 					},
 				],
@@ -40,19 +44,19 @@ export const useDjStore = defineStore("djStore", {
 				events: [
 					{
 						name: "Wedding 1",
-						image: "",
+						image: eventImg,
 						description:
 							"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 					},
 					{
 						name: "Wedding 2",
-						image: "",
+						image: eventImg2,
 						description:
 							"Vestibulum id ligula porta felis euismod semper.",
 					},
 					{
 						name: "Wedding 3",
-						image: "",
+						image: eventImg3,
 						description: "Nunc id neque semper, tristique",
 					},
 				],
@@ -82,19 +86,19 @@ export const useDjStore = defineStore("djStore", {
 				events: [
 					{
 						name: "Wedding 1",
-						image: "",
+						image: eventImg,
 						description:
 							"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 					},
 					{
 						name: "Wedding 2",
-						image: "",
+						image: eventImg2,
 						description:
 							"Vestibulum id ligula porta felis euismod semper.",
 					},
 					{
 						name: "Wedding 3",
-						image: "",
+						image: eventImg3,
 						description: "Nunc id neque semper, tristique",
 					},
 				],
@@ -123,19 +127,19 @@ export const useDjStore = defineStore("djStore", {
 				events: [
 					{
 						name: "Wedding 1",
-						image: "",
+						image: eventImg,
 						description:
 							"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 					},
 					{
 						name: "Wedding 2",
-						image: "",
+						image: eventImg2,
 						description:
 							"Vestibulum id ligula porta felis euismod semper.",
 					},
 					{
 						name: "Wedding 3",
-						image: "",
+						image: eventImg3,
 						description: "Nunc id neque semper, tristique",
 					},
 				],
@@ -165,19 +169,19 @@ export const useDjStore = defineStore("djStore", {
 				events: [
 					{
 						name: "Wedding 1",
-						image: "",
+						image: eventImg,
 						description:
 							"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 					},
 					{
 						name: "Wedding 2",
-						image: "",
+						image: eventImg2,
 						description:
 							"Vestibulum id ligula porta felis euismod semper.",
 					},
 					{
 						name: "Wedding 3",
-						image: "",
+						image: eventImg3,
 						description: "Nunc id neque semper, tristique",
 					},
 				],
@@ -206,19 +210,19 @@ export const useDjStore = defineStore("djStore", {
 				events: [
 					{
 						name: "Wedding 1",
-						image: "",
+						image: eventImg,
 						description:
 							"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 					},
 					{
 						name: "Wedding 2",
-						image: "",
+						image: eventImg2,
 						description:
 							"Vestibulum id ligula porta felis euismod semper.",
 					},
 					{
 						name: "Wedding 3",
-						image: "",
+						image: eventImg3,
 						description: "Nunc id neque semper, tristique",
 					},
 				],
@@ -248,19 +252,19 @@ export const useDjStore = defineStore("djStore", {
 				events: [
 					{
 						name: "Wedding 1",
-						image: "",
+						image: eventImg,
 						description:
 							"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 					},
 					{
 						name: "Wedding 2",
-						image: "",
+						image: eventImg2,
 						description:
 							"Vestibulum id ligula porta felis euismod semper.",
 					},
 					{
 						name: "Wedding 3",
-						image: "",
+						image: eventImg3,
 						description: "Nunc id neque semper, tristique",
 					},
 				],
@@ -289,19 +293,19 @@ export const useDjStore = defineStore("djStore", {
 				events: [
 					{
 						name: "Wedding 1",
-						image: "",
+						image: eventImg,
 						description:
 							"Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
 					},
 					{
 						name: "Wedding 2",
-						image: "",
+						image: eventImg2,
 						description:
 							"Vestibulum id ligula porta felis euismod semper.",
 					},
 					{
 						name: "Wedding 3",
-						image: "",
+						image: eventImg3,
 						description: "Nunc id neque semper, tristique",
 					},
 				],
@@ -324,4 +328,13 @@ export const useDjStore = defineStore("djStore", {
 			},
 		],
 	}),
+	actions: {
+		registerDj(data) {
+			const coachData = {
+				name: data.username,
+				location: data.location,
+			};
+			this.djs.push(coachData);
+		},
+	},
 });

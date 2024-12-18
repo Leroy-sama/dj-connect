@@ -1,45 +1,86 @@
 <template>
-	<section class="signin">
-		<div class="signin__wrapper">
-			<h1 class="signin__head">Sign In</h1>
-			<p class="signin__text">
-				Enter your account details to log in to your account
-			</p>
-			<form action="#">
-				<div class="form-control">
-					<label for="email">Email Address</label>
-					<input
-						type="email"
-						id="email"
-						name="email"
-						placeholder="example@me.com"
-					/>
-				</div>
-				<div class="form-control">
-					<label for="password">Password</label>
-					<input
-						type="password"
-						id="password"
-						name="password"
-						placeholder="********"
-					/>
-				</div>
-				<p class="forgot">
-					Forgot Password? <RouterLink to="/reset">Reset</RouterLink>
+	<main>
+		<section class="signin">
+			<div class="signin__wrapper">
+				<h1 class="signin__head">Sign In</h1>
+				<p class="signin__text">
+					Enter your account details to log in to your account
 				</p>
-				<div class="form-control">
-					<button>Sign In</button>
-				</div>
-				<p class="new">
-					Don't have an account?
-					<RouterLink to="/signup">Sign Up</RouterLink>
-				</p>
-			</form>
-		</div>
-	</section>
+				<form action="#" @submit.prevent="handleSubmit">
+					<div class="form-control">
+						<label for="email">Email Address</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="example@me.com"
+							v-model="email"
+							@input="validateForm"
+							required
+						/>
+					</div>
+					<div class="form-control">
+						<label for="password">Password</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="********"
+							v-model="password"
+							@input="validateForm"
+							required
+							minlength="6"
+						/>
+					</div>
+					<p class="forgot">
+						Forgot Password?
+						<RouterLink to="/reset">Reset</RouterLink>
+					</p>
+					<div class="form-control">
+						<button type="submit" :disabled="!isFormValid">
+							Sign In
+						</button>
+					</div>
+					<p class="new">
+						Don't have an account?
+						<RouterLink to="/signup">Sign Up</RouterLink>
+					</p>
+				</form>
+			</div>
+		</section>
+	</main>
 </template>
 
-<script setup></script>
+<script setup>
+	import { ref } from "vue";
+
+	const email = ref("");
+	const password = ref("");
+	const isEmailValid = ref(false);
+	const isPasswordValid = ref(false);
+	const isFormValid = ref(false);
+
+	const validateForm = () => {
+		isEmailValid.value = validateEmail(email.value);
+		isPasswordValid.value = password.value.length >= 6;
+		isFormValid.value = isEmailValid.value && isPasswordValid.value;
+	};
+
+	const validateEmail = (email) => {
+		const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		return emailPattern.test(email);
+	};
+
+	const handleSubmit = () => {
+		if (isFormValid.value) {
+			// Handle form submission logic
+			console.log("Form submitted with:", {
+				email: email.value,
+				password: password.value,
+			});
+		}
+	};
+</script>
 
 <style lang="css" scoped>
 	.signin {
@@ -93,5 +134,11 @@
 
 	.form-control button:hover {
 		background-color: var(--clr-01-dark);
+	}
+
+	.form-control button:disabled {
+		background-color: #ccc;
+		cursor: not-allowed;
+		color: black;
 	}
 </style>

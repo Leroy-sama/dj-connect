@@ -1,8 +1,8 @@
 <template>
 	<section class="hero overlay">
-		<div class="hero__wrapper">
+		<div class="wrapper">
 			<div class="hero__content">
-				<h1 class="hero__title">Book A DJ for your Event</h1>
+				<h1 class="hero__title">Book a DJ for your Event</h1>
 				<p class="hero__description">
 					Lorem, ipsum dolor sit amet consectetur adipisicing elit.
 					Repellendus modi nesciunt animi repudiandae ab porro quaerat
@@ -13,7 +13,7 @@
 		</div>
 	</section>
 	<section class="features">
-		<div class="features__wrapper">
+		<div class="wrapper">
 			<div class="feature1">
 				<div class="feature__text">
 					<h2 class="feature__text-head">Best services available</h2>
@@ -54,33 +54,50 @@
 			</div>
 		</div>
 	</section>
+	<section class="djs">
+		<div class="wrapper">
+			<h2 class="djs__head">Featured Djs</h2>
+			<div class="djs__grid">
+				<div v-for="dj in djStore.djs.slice(0, 3)" :key="dj.id">
+					<DjItem
+						:id="dj.id"
+						:image="dj.image"
+						:name="dj.name"
+						:location="dj.location"
+					/>
+				</div>
+			</div>
+			<RouterLink to="/djs">View All</RouterLink>
+		</div>
+	</section>
 </template>
 
-<script setup></script>
+<script setup>
+	import DjItem from "@/components/DjItem.vue";
+	import { useDjStore } from "@/stores/counter";
+
+	const djStore = useDjStore();
+</script>
 
 <style lang="css" scoped>
-	.hero {
-		min-height: 90vh;
-		background-image: url(https://i.pinimg.com/564x/2e/52/d8/2e52d83830f9b05d3f4bfcb3451af028.jpg);
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-		display: flex;
-		align-items: center;
-		border-image: linear-gradient(
-				hsl(240% 100% 20% / 0.8),
-				hsl(0% 100% 20% / 0.8)
-			)
-			fill 1;
-	}
-
-	/* .overlay {
+	.overlay {
 		border-image: linear-gradient(
 				hsl(240, 100%, 20% / 0.6),
 				hsl(0, 100%, 20% / 0.6)
 			)
 			fill 1;
-	} */
+	}
+
+	.hero {
+		min-height: 90vh;
+		background-image: linear-gradient(rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.5)),
+			url(../assets/img/hero-trail.jpg);
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		display: flex;
+		align-items: center;
+	}
 
 	.hero__wrapper {
 		padding: 1.5rem;
@@ -90,6 +107,8 @@
 		color: rgb(255, 255, 255);
 		font-size: 3rem;
 		line-height: 1;
+		font-family: var(--ff-accent);
+		font-weight: 700;
 	}
 
 	.hero__description {
@@ -109,7 +128,7 @@
 
 	.features {
 		padding: 0 1.5rem;
-		background-color: #ccc;
+		/* background-color: #ccc; */
 	}
 
 	.features__wrapper {
@@ -136,7 +155,27 @@
 		padding: 1rem 0 2rem;
 	}
 
+	.djs {
+		padding: 0 1.5rem;
+	}
+
+	.djs__head {
+		font-size: 2rem;
+		font-family: "Playfair", serif;
+	}
+
+	.djs__grid {
+		display: grid;
+		gap: 1.5rem;
+		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	}
+
 	@media (min-width: 768px) {
+		.hero__title {
+			font-weight: 700;
+			font-size: 3.5rem;
+		}
+
 		.features__wrapper {
 			gap: 0;
 		}
